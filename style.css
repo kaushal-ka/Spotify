@@ -214,3 +214,9 @@ nav .brand {
     font-size: 0.8rem;
   }
 }
+@media screen and (max-width: 480px) {
+  nav ul li{
+    font-size: 0.9rem;
+    padding: 5px 10px;
+  } 
+}
