@@ -19,27 +19,27 @@ let songItems = Array.from(document.getElementsByClassName("songItem"));
 let songs = [
   {
     songName: "Let Me Love You - Justin Bieber",
-    filePath: "songs/1.mp3",
+    filePath: "songs/0.mp3",
     coverPath: "covers/cover1.jpg",
   },
   {
     songName: "Boond Boond Full Audio Song",
-    filePath: "songs/2.mp3",
+    filePath: "songs/1.mp3",
     coverPath: "covers/cover2.jpg",
   },
   {
     songName: "Aashiq Banaya Aapne Song_Lyrics_ Hate Story IV",
-    filePath: "songs/3.mp3",
+    filePath: "songs/2.mp3",
     coverPath: "covers/cover3.jpg",
   },
   {
     songName: "Pink Lips Full Audio Song _ Hate Story 2",
-    filePath: "songs/4.mp3",
+    filePath: "songs/3.mp3",
     coverPath: "covers/cover4.jpg",
   },
   {
     songName: "O_Rey_Chhori_Lyric@A._R._Rahman",
-    filePath: "songs/5.mp3",
+    filePath: "songs/4.mp3",
     coverPath: "covers/cover5.jpg",
   },
 ];
