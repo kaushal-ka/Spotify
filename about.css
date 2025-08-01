@@ -1,0 +1,105 @@
+/* about.css */
+
+/* General Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #f9f9f9;
+  color: #222;
+  line-height: 1.6;
+}
+
+/* Hero Section */
+.hero-section {
+  background: linear-gradient(to right, #1db954, #1ed760);
+  color: white;
+  padding: 60px 20px;
+  text-align: center;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+.hero-section h1 {
+  font-size: 3rem;
+  margin-bottom: 10px;
+}
+
+.hero-section p {
+  font-size: 1.2rem;
+}
+
+/* Section Styling */
+section {
+  padding: 40px 20px;
+  max-width: 1000px;
+  margin: auto;
+}
+
+section h2 {
+  font-size: 2rem;
+  margin-bottom: 20px;
+  color: #1db954;
+  border-bottom: 2px solid #1db954;
+  display: inline-block;
+  padding-bottom: 5px;
+}
+
+section p,
+section ul {
+  font-size: 1rem;
+  color: #333;
+}
+
+/* Tech Stack List */
+.tech-stack ul {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+}
+
+.tech-stack li {
+  background-color: #e8f5e9;
+  padding: 10px 20px;
+  border-radius: 30px;
+  font-weight: 500;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+}
+
+/* CTA Section */
+.cta {
+  background-color: #ffffff;
+  border-top: 1px solid #ddd;
+  text-align: center;
+}
+
+.cta-button {
+  display: inline-block;
+  margin-top: 20px;
+  padding: 12px 30px;
+  background-color: #1db954;
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+  border-radius: 30px;
+  transition: background 0.3s ease;
+}
+
+.cta-button:hover {
+  background-color: #17a74a;
+}
+
+/* Footer */
+footer {
+  text-align: center;
+  padding: 20px;
+  font-size: 0.9rem;
+  background-color: #f1f1f1;
+  color: #555;
+  margin-top: 40px;
+}
