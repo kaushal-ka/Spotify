@@ -44,7 +44,7 @@ audioElement.addEventListener("error", (e) => {
 //   { songName: "Boond Boond Full Audio Song", filePath: "songs/1.mp3" },
 //   { songName: "Aashiq Banaya Aapne Song_Lyrics_ Hate Story IV", filePath: "songs/2.mp3" },
 //   { songName: "Pink Lips Full Audio Song _ Hate Story 2", filePath: "songs/3.mp3" },
-//   { songName: "O_Rey_Chhori_Lyric@A._R._Rahman", filePath: "songs/4.mp3" },
+//   { songName: "O_Rey_Chhori", filePath: "songs/4.mp3" },
 // ];
 
 let songs = [
@@ -69,7 +69,7 @@ let songs = [
     coverPath: "covers/cover4.jpg",
   },
   {
-    songName: "O_Rey_Chhori_Lyric@A._R._Rahman",
+    songName: "O_Rey_Chhori_Lyric",
     filePath: "songs/4.mp3",
     coverPath: "covers/cover5.jpg",
   },
