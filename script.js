@@ -1,4 +1,5 @@
 console.log("Welcome to Spotify Clone");
+console.log("Welcoming all the music lover to my spotify clone...")
 
 // Initialize variables
 let songIndex = 0;
@@ -112,7 +113,7 @@ function updateAllUI() {
   const vizCover = document.getElementById("visualizerCover");
   const vizSong = document.getElementById("visualizerSongName");
   const vizArtist = document.getElementById("visualizerArtistName");
-
+  
   if (vizCover) {
     vizCover.src = currentSong.coverPath;
     vizCover.onerror = () => {
