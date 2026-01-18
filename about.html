@@ -4,8 +4,10 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="theme-color" content="#1db954" />
   <title>About | Spotify Clone by Kaushal</title>
   <link rel="stylesheet" href="about.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
 </head>
 <body>
   <!-- Hero Section -->
@@ -46,7 +48,157 @@
       <li>CSS3 (with modern Flexbox and Grid)</li>
       <li>JavaScript (vanilla, DOM manipulation)</li>
       <li>Font Awesome for icons</li>
+      <li>LocalStorage for persistence</li>
+      <li>Service Workers (PWA)</li>
     </ul>
+  </section>
+
+  <!-- Keyboard Shortcuts Guide -->
+  <section class="keyboard-shortcuts" id="keyboard-shortcuts">
+    <h2>⌨️ Keyboard Shortcuts Guide</h2>
+    <p class="shortcuts-intro">Master the music player with these keyboard shortcuts. Press <kbd>?</kbd> anytime to open this guide!</p>
+    
+    <div class="shortcuts-grid">
+      <!-- Playback Controls -->
+      <div class="shortcuts-category">
+        <h3><i class="fa-solid fa-play-circle"></i> Playback Controls</h3>
+        <div class="shortcut-list">
+          <div class="shortcut-item">
+            <div class="key-combo"><kbd>Space</kbd></div>
+            <div class="description">Play / Pause</div>
+          </div>
+          <div class="shortcut-item">
+            <div class="key-combo"><kbd>→</kbd></div>
+            <div class="description">Next Song (or Skip Forward)</div>
+          </div>
+          <div class="shortcut-item">
+
+  <!-- Help Modal -->
+  <div id="helpModal" class="modal">
+    <div class="modal-content">
+      <span class="modal-close">&times;</span>
+      <h2 class="modal-title">⌨️ Keyboard Shortcuts</h2>
+      
+      <div class="modal-shortcuts">
+        <div class="modal-category">
+          <h4><i class="fa-solid fa-play-circle"></i> Playback</h4>
+          <div class="modal-shortcut">
+            <span class="kbd"><kbd>Space</kbd></span>
+            <span>Play / Pause</span>
+          </div>
+          <div class="modal-shortcut">
+            <span class="kbd"><kbd>→</kbd></span>
+            <span>Next</span>
+          </div>
+          <div class="modal-shortcut">
+            <span class="kbd"><kbd>←</kbd></span>
+            <span>Previous</span>
+          </div>
+        </div>
+
+        <div class="modal-category">
+          <h4><i class="fa-solid fa-sliders"></i> Modes</h4>
+          <div class="modal-shortcut">
+            <span class="kbd"><kbd>S</kbd></span>
+            <span>Shuffle</span>
+          </div>
+          <div class="modal-shortcut">
+            <span class="kbd"><kbd>R</kbd></span>
+            <span>Repeat</span>
+          </div>
+          <div class="modal-shortcut">
+            <span class="kbd"><kbd>L</kbd></span>
+            <span>Like</span>
+          </div>
+        </div>
+
+        <div class="modal-category">
+          <h4><i class="fa-solid fa-palette"></i> Interface</h4>
+          <div class="modal-shortcut">
+            <span class="kbd"><kbd>D</kbd></span>
+            <span>Dark Mode</span>
+          </div>
+          <div class="modal-shortcut">
+            <span class="kbd"><kbd>?</kbd></span>
+            <span>Help</span>
+          </div>
+          <div class="modal-shortcut">
+            <span class="kbd"><kbd>Esc</kbd></span>
+            <span>Close</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="about.js"></script      <div class="description">Previous Song</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Mode Controls -->
+      <div class="shortcuts-category">
+        <h3><i class="fa-solid fa-sliders"></i> Mode Controls</h3>
+        <div class="shortcut-list">
+          <div class="shortcut-item">
+            <div class="key-combo"><kbd>S</kbd></div>
+            <div class="description">Toggle Shuffle Mode</div>
+          </div>
+          <div class="shortcut-item">
+            <div class="key-combo"><kbd>R</kbd></div>
+            <div class="description">Cycle Repeat Mode (Off → All → One)</div>
+          </div>
+          <div class="shortcut-item">
+            <div class="key-combo"><kbd>L</kbd></div>
+            <div class="description">Like / Unlike Current Song</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Interface Controls -->
+      <div class="shortcuts-category">
+        <h3><i class="fa-solid fa-palette"></i> Interface Controls</h3>
+        <div class="shortcut-list">
+          <div class="shortcut-item">
+            <div class="key-combo"><kbd>D</kbd></div>
+            <div class="description">Toggle Dark Mode</div>
+          </div>
+          <div class="shortcut-item">
+            <div class="key-combo"><kbd>?</kbd></div>
+            <div class="description">Show This Help Guide</div>
+          </div>
+          <div class="shortcut-item">
+            <div class="key-combo"><kbd>Esc</kbd></div>
+            <div class="description">Close Help Modal</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Advanced Tips -->
+      <div class="shortcuts-category full-width">
+        <h3><i class="fa-solid fa-lightbulb"></i> Pro Tips</h3>
+        <div class="tips-list">
+          <div class="tip-item">
+            <strong>Volume Control:</strong> Use your mouse wheel or dragging on the volume slider for precise control
+          </div>
+          <div class="tip-item">
+            <strong>Progress Bar:</strong> Click anywhere on the progress bar to jump to that time in the song
+          </div>
+          <div class="tip-item">
+            <strong>Search:</strong> Start typing to instantly search and filter songs by name
+          </div>
+          <div class="tip-item">
+            <strong>Liked Songs:</strong> All your favorite songs are automatically saved in your browser
+          </div>
+          <div class="tip-item">
+            <strong>Dark Mode:</strong> Your theme preference is remembered between sessions
+          </div>
+          <div class="tip-item">
+            <strong>Offline Mode:</strong> The app caches songs for offline playback (PWA enabled)
+          </div>
+        </div>
+      </div>
+    </div>
   </section>
 
   <!-- Journey / Timeline -->
