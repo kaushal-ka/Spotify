@@ -979,39 +979,58 @@ sidebarTabs.forEach(tab => {
 // 13. SIDEBAR TOGGLE (Mobile)
 const sidebarToggle = document.getElementById("sidebarToggle");
 const sidebar = document.getElementById("sidebar");
+const sidebarOverlay = document.getElementById("sidebarOverlay");
 
-console.log("Sidebar Debug:", { sidebarToggle, sidebar });
+if (sidebarToggle && sidebar && sidebarOverlay) {
+  const toggleIcon = sidebarToggle.querySelector("i");
 
-if (sidebarToggle && sidebar) {
+  function closeSidebar() {
+    sidebar.classList.remove("active");
+    sidebarOverlay.classList.remove("active");
+    sidebarToggle.classList.remove("active");
+    if (toggleIcon) {
+      toggleIcon.classList.remove("fa-xmark");
+      toggleIcon.classList.add("fa-bars");
+    }
+  }
+
   // Toggle sidebar on button click
   sidebarToggle.addEventListener("click", (e) => {
     e.stopPropagation();
-    console.log("Sidebar toggle clicked");
-    sidebar.classList.toggle("active");
-    console.log("Sidebar now:", sidebar.classList.contains("active") ? "OPEN" : "CLOSED");
+    const isOpen = sidebar.classList.toggle("active");
+    sidebarOverlay.classList.toggle("active");
+    sidebarToggle.classList.toggle("active");
+
+    if (toggleIcon) {
+      if (isOpen) {
+        toggleIcon.classList.remove("fa-bars");
+        toggleIcon.classList.add("fa-xmark");
+      } else {
+        toggleIcon.classList.remove("fa-xmark");
+        toggleIcon.classList.add("fa-bars");
+      }
+    }
   });
 
-  // Close sidebar when clicking outside
-  document.addEventListener("click", (e) => {
-    if (sidebar && sidebar.classList.contains("active")) {
-      if (!e.target.closest(".sidebar") && !e.target.closest(".sidebar-toggle")) {
-        sidebar.classList.remove("active");
-        console.log("Sidebar closed (outside click)");
+  // Global click listener to close sidebar when clicking outside
+  window.addEventListener("click", (e) => {
+    if (sidebar.classList.contains("active")) {
+      // If click is outside sidebar AND outside the toggle button, close it
+      if (!sidebar.contains(e.target) && !sidebarToggle.contains(e.target)) {
+        closeSidebar();
       }
     }
   });
 
   // Close sidebar on ESC key
   document.addEventListener("keydown", (e) => {
-    if (e.key === "Escape" && sidebar && sidebar.classList.contains("active")) {
-      sidebar.classList.remove("active");
-      console.log("Sidebar closed (ESC key)");
+    if (e.key === "Escape" && sidebar.classList.contains("active")) {
+      closeSidebar();
     }
   });
-
   console.log("Sidebar toggle initialized successfully");
 } else {
-  console.warn("Sidebar elements not found:", { sidebarToggle, sidebar });
+  console.warn("Sidebar elements not found:", { sidebarToggle, sidebar, sidebarOverlay });
 }
 
 // 14. CLEAR HISTORY
