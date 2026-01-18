@@ -5,19 +5,37 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="theme-color" content="#1db954" />
-  <meta name="description" content="A fully responsive Spotify clone music player with volume control, shuffle, repeat, dark mode, and more" />
+  <meta name="description"
+    content="A fully responsive Spotify clone music player with volume control, shuffle, repeat, dark mode, and real-time audio visualizer." />
+
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://yourdomain.com/" />
+  <meta property="og:title" content="Spotify Clone - Premium Music Experience" />
+  <meta property="og:description"
+    content="Stream your favorite NCS tracks with a beautiful, responsive, and performance-optimized player." />
+  <meta property="og:image" content="logo.jpg" />
+
+  <!-- Twitter -->
+  <meta property="twitter:card" content="summary_large_image" />
+  <meta property="twitter:url" content="https://yourdomain.com/" />
+  <meta property="twitter:title" content="Spotify Clone - Premium Music Experience" />
+  <meta property="twitter:description"
+    content="Stream your favorite NCS tracks with a beautiful, responsive, and performance-optimized player." />
+  <meta property="twitter:image" content="logo.jpg" />
+
   <title>Spotify Clone - Your favourite music is here</title>
-  <link rel="icon" href="favicon.ico" type="image/x-icon" />
+  <link rel="icon" href="logo.jpg" type="image/x-icon" />
   <link rel="manifest" href="manifest.json" />
   <link rel="stylesheet" href="style.css" />
 </head>
 
 <body>
   <a href="#main-content" class="skip-link">Skip to main content</a>
-  
+
   <!-- Mobile Menu Overlay -->
   <div class="menu-overlay" id="menuOverlay"></div>
-  
+
   <nav role="navigation" aria-label="Main navigation">
     <div class="brand">
       <img src="logo.jpg" alt="Spotify Logo" />
@@ -35,7 +53,8 @@
       <li><a href="/">Home</a></li>
       <li><a href="about.html">About</a></li>
       <li><a href="about.html#keyboard-shortcuts" title="View keyboard shortcuts">Help (?)</a></li>
-      <li><button id="darkModeToggle" class="fa-solid fa-moon" title="Toggle Dark Mode (D)" aria-label="Toggle dark mode"></button></li>
+      <li><button id="darkModeToggle" class="fa-solid fa-moon" title="Toggle Dark Mode (D)"
+          aria-label="Toggle dark mode"></button></li>
     </ul>
   </nav>
 
@@ -60,7 +79,7 @@
             <i class="fa-solid fa-compact-disc"></i> <span>Playlists</span>
           </button>
         </div>
-        
+
         <!-- Queue Tab -->
         <div class="sidebar-content active" data-content="queue">
           <h3>Next Up</h3>
@@ -68,7 +87,7 @@
             <!-- Queue items populated by JS -->
           </div>
         </div>
-        
+
         <!-- History Tab -->
         <div class="sidebar-content" data-content="history">
           <h3>Recently Played</h3>
@@ -77,7 +96,7 @@
           </div>
           <button id="clearHistoryBtn" class="clear-btn">Clear History</button>
         </div>
-        
+
         <!-- Lyrics Tab -->
         <div class="sidebar-content" data-content="lyrics">
           <h3 id="lyricsSongName">Lyrics</h3>
@@ -85,7 +104,7 @@
             <p class="no-lyrics">No lyrics available for this song</p>
           </div>
         </div>
-        
+
         <!-- Stats Tab -->
         <div class="sidebar-content" data-content="stats">
           <h3>Your Stats</h3>
@@ -126,7 +145,7 @@
             </div>
           </div>
         </div>
-        
+
         <!-- Playlists Tab -->
         <div class="sidebar-content" data-content="playlists">
           <h3>My Playlists</h3>
@@ -164,222 +183,241 @@
           </div>
         </div>
         <div class="songItemContainer" role="list">
-        <div class="songItem" role="listitem">
-          <img src="covers/cover1.jpg" alt="Album cover" />
-          <span class="songName">Let me Love You</span>
-          <span class="songlistplay">
-            <span class="timestamp">05:34
-              <i id="0" class="fa-solid songItemPlay fa-circle-play" role="button" tabindex="0" aria-label="Play song"></i></span>
-          </span>
-        </div>
-        <div class="songItem" role="listitem">
-          <img src="covers/cover1.jpg" alt="Album cover" />
-          <span class="songName">Let me Love You</span>
-          <span class="songlistplay">
-            <span class="timestamp">05:34
-              <i id="1" class="fa-solid songItemPlay fa-circle-play" role="button" tabindex="0" aria-label="Play song"></i></span>
-          </span>
-        </div>
-        <div class="songItem" role="listitem">
-          <img src="covers/cover1.jpg" alt="Album cover" />
-          <span class="songName">Let me Love You</span>
-          <span class="songlistplay">
-            <span class="timestamp">05:34
-              <i id="2" class="fa-solid songItemPlay fa-circle-play" role="button" tabindex="0" aria-label="Play song"></i></span>
-          </span>
-        </div>
-        <div class="songItem" role="listitem">
-          <img src="covers/cover1.jpg" alt="Album cover" />
-          <span class="songName">Let me Love You</span>
-          <span class="songlistplay">
-            <span class="timestamp">05:34
-              <i id="3" class="fa-solid songItemPlay fa-circle-play" role="button" tabindex="0" aria-label="Play song"></i></span>
-          </span>
-        </div>
-        <div class="songItem" role="listitem">
-          <img src="covers/cover1.jpg" alt="Album cover" />
-          <span class="songName">Let me Love You</span>
-          <span class="songlistplay">
-            <span class="timestamp">05:34
-              <i id="4" class="fa-solid songItemPlay fa-circle-play" role="button" tabindex="0" aria-label="Play song"></i></span>
-          </span>
-        </div>
-      </div>
-      <div class="songBanner"></div>
-
-      <!-- Recently Added Section -->
-      <section class="section-container" id="recentlyAdded">
-        <div class="section-header">
-          <h2>Recently Added</h2>
-          <a href="#" class="see-all">See All</a>
-        </div>
-        <div class="songs-carousel" id="recentlyAddedCarousel">
-          <!-- Populated by JS -->
-        </div>
-      </section>
-
-      <!-- Recommendations Section -->
-      <section class="section-container" id="recommendations">
-        <div class="section-header">
-          <h2>Recommended For You</h2>
-          <a href="#" class="see-all">See All</a>
-        </div>
-        <div class="songs-carousel" id="recommendationsCarousel">
-          <!-- Populated by JS -->
-        </div>
-      </section>
-
-      <!-- Audio Visualizer -->
-      <div class="visualizer-container">
-        <canvas id="audioVisualizer" width="400" height="100"></canvas>
-      </div>
-
-      <!-- Mini Player -->
-      <div class="mini-player" id="miniPlayer">
-        <div class="mini-player-content">
-          <img id="miniPlayerCover" src="covers/cover1.jpg" alt="Album cover" />
-          <div class="mini-player-info">
-            <h4 id="miniPlayerTitle">Song Title</h4>
-            <p id="miniPlayerArtist">Artist</p>
+          <div class="songItem" role="listitem">
+            <img src="covers/cover1.jpg" alt="Album cover" />
+            <span class="songName">Let me Love You</span>
+            <span class="songlistplay">
+              <span class="timestamp">05:34
+                <i id="0" class="fa-solid songItemPlay fa-circle-play" role="button" tabindex="0"
+                  aria-label="Play song"></i></span>
+            </span>
           </div>
-          <div class="mini-player-controls">
-            <button class="mini-play-btn" id="miniPlayBtn" aria-label="Play/Pause">
-              <i class="fa-solid fa-play"></i>
-            </button>
-            <button class="mini-close-btn" id="miniCloseBtn" aria-label="Close mini player">
+          <div class="songItem" role="listitem">
+            <img src="covers/cover1.jpg" alt="Album cover" />
+            <span class="songName">Let me Love You</span>
+            <span class="songlistplay">
+              <span class="timestamp">05:34
+                <i id="1" class="fa-solid songItemPlay fa-circle-play" role="button" tabindex="0"
+                  aria-label="Play song"></i></span>
+            </span>
+          </div>
+          <div class="songItem" role="listitem">
+            <img src="covers/cover1.jpg" alt="Album cover" />
+            <span class="songName">Let me Love You</span>
+            <span class="songlistplay">
+              <span class="timestamp">05:34
+                <i id="2" class="fa-solid songItemPlay fa-circle-play" role="button" tabindex="0"
+                  aria-label="Play song"></i></span>
+            </span>
+          </div>
+          <div class="songItem" role="listitem">
+            <img src="covers/cover1.jpg" alt="Album cover" />
+            <span class="songName">Let me Love You</span>
+            <span class="songlistplay">
+              <span class="timestamp">05:34
+                <i id="3" class="fa-solid songItemPlay fa-circle-play" role="button" tabindex="0"
+                  aria-label="Play song"></i></span>
+            </span>
+          </div>
+          <div class="songItem" role="listitem">
+            <img src="covers/cover1.jpg" alt="Album cover" />
+            <span class="songName">Let me Love You</span>
+            <span class="songlistplay">
+              <span class="timestamp">05:34
+                <i id="4" class="fa-solid songItemPlay fa-circle-play" role="button" tabindex="0"
+                  aria-label="Play song"></i></span>
+            </span>
+          </div>
+        </div>
+        <div class="songBanner"></div>
+
+        <!-- Recently Added Section -->
+        <section class="section-container" id="recentlyAdded">
+          <div class="section-header">
+            <h2>Recently Added</h2>
+            <a href="#" class="see-all">See All</a>
+          </div>
+          <div class="songs-carousel" id="recentlyAddedCarousel">
+            <!-- Populated by JS -->
+          </div>
+        </section>
+
+        <!-- Recommendations Section -->
+        <section class="section-container" id="recommendations">
+          <div class="section-header">
+            <h2>Recommended For You</h2>
+            <a href="#" class="see-all">See All</a>
+          </div>
+          <div class="songs-carousel" id="recommendationsCarousel">
+            <!-- Populated by JS -->
+          </div>
+        </section>
+
+        <!-- Audio Visualizer -->
+        <div class="visualizer-container">
+          <div class="visualizer-overlay">
+            <img id="visualizerCover" src="covers/cover1.jpg" alt="Now Playing" />
+            <div class="visualizer-info">
+              <h2 id="visualizerSongName">Let Me Love You</h2>
+              <p id="visualizerArtistName">NCS Release</p>
+            </div>
+          </div>
+          <canvas id="audioVisualizer" width="400" height="100"></canvas>
+        </div>
+
+        <!-- Mini Player -->
+        <div class="mini-player" id="miniPlayer">
+          <div class="mini-player-content">
+            <img id="miniPlayerCover" src="covers/cover1.jpg" alt="Album cover" />
+            <div class="mini-player-info">
+              <h4 id="miniPlayerTitle">Song Title</h4>
+              <p id="miniPlayerArtist">Artist</p>
+            </div>
+            <div class="mini-player-controls">
+              <button class="mini-play-btn" id="miniPlayBtn" aria-label="Play/Pause">
+                <i class="fa-solid fa-play"></i>
+              </button>
+              <button class="mini-close-btn" id="miniCloseBtn" aria-label="Close mini player">
+                <i class="fa-solid fa-xmark"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Share Modal -->
+        <div id="shareModal" class="modal">
+          <div class="modal-content">
+            <span class="modal-close">&times;</span>
+            <h2 class="modal-title">🔗 Share Song</h2>
+            <div class="share-options">
+              <button class="share-btn" data-share="twitter" title="Share on Twitter">
+                <i class="fa-brands fa-x-twitter"></i> Twitter
+              </button>
+              <button class="share-btn" data-share="facebook" title="Share on Facebook">
+                <i class="fa-brands fa-facebook"></i> Facebook
+              </button>
+              <button class="share-btn" data-share="whatsapp" title="Share on WhatsApp">
+                <i class="fa-brands fa-whatsapp"></i> WhatsApp
+              </button>
+              <button class="share-btn" data-share="copy" title="Copy Link">
+                <i class="fa-solid fa-link"></i> Copy Link
+              </button>
+            </div>
+            <div class="share-link">
+              <input type="text" id="shareLink" readonly />
+              <button id="copySongLink" class="copy-btn">Copy</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Playlist Modal -->
+        <div id="playlistModal" class="modal">
+          <div class="modal-content">
+            <span class="modal-close">&times;</span>
+            <h2 class="modal-title">📚 Create Playlist</h2>
+            <form id="playlistForm">
+              <input type="text" id="playlistName" placeholder="Playlist name..." required />
+              <textarea id="playlistDesc" placeholder="Add a description (optional)"></textarea>
+              <button type="submit" class="btn-primary">Create</button>
+            </form>
+          </div>
+        </div>
+
+        <!-- Equalizer Panel -->
+        <div class="equalizer-panel" id="equalizerPanel">
+          <div class="eq-header">
+            <h3>🎛️ Equalizer</h3>
+            <button class="eq-close" id="eqClose">
               <i class="fa-solid fa-xmark"></i>
             </button>
           </div>
-        </div>
-      </div>
-
-      <!-- Share Modal -->
-      <div id="shareModal" class="modal">
-        <div class="modal-content">
-          <span class="modal-close">&times;</span>
-          <h2 class="modal-title">🔗 Share Song</h2>
-          <div class="share-options">
-            <button class="share-btn" data-share="twitter" title="Share on Twitter">
-              <i class="fa-brands fa-x-twitter"></i> Twitter
-            </button>
-            <button class="share-btn" data-share="facebook" title="Share on Facebook">
-              <i class="fa-brands fa-facebook"></i> Facebook
-            </button>
-            <button class="share-btn" data-share="whatsapp" title="Share on WhatsApp">
-              <i class="fa-brands fa-whatsapp"></i> WhatsApp
-            </button>
-            <button class="share-btn" data-share="copy" title="Copy Link">
-              <i class="fa-solid fa-link"></i> Copy Link
-            </button>
+          <div class="eq-presets">
+            <button class="eq-preset active" data-preset="normal">Normal</button>
+            <button class="eq-preset" data-preset="bass">Bass</button>
+            <button class="eq-preset" data-preset="treble">Treble</button>
+            <button class="eq-preset" data-preset="vocal">Vocal</button>
           </div>
-          <div class="share-link">
-            <input type="text" id="shareLink" readonly />
-            <button id="copySongLink" class="copy-btn">Copy</button>
+          <div class="eq-sliders">
+            <div class="eq-slider">
+              <label>60Hz</label>
+              <input type="range" class="eq-control" min="-20" max="20" value="0" data-freq="60" />
+            </div>
+            <div class="eq-slider">
+              <label>250Hz</label>
+              <input type="range" class="eq-control" min="-20" max="20" value="0" data-freq="250" />
+            </div>
+            <div class="eq-slider">
+              <label>1kHz</label>
+              <input type="range" class="eq-control" min="-20" max="20" value="0" data-freq="1000" />
+            </div>
+            <div class="eq-slider">
+              <label>4kHz</label>
+              <input type="range" class="eq-control" min="-20" max="20" value="0" data-freq="4000" />
+            </div>
+            <div class="eq-slider">
+              <label>12kHz</label>
+              <input type="range" class="eq-control" min="-20" max="20" value="0" data-freq="12000" />
+            </div>
           </div>
-        </div>
-      </div>
-
-      <!-- Playlist Modal -->
-      <div id="playlistModal" class="modal">
-        <div class="modal-content">
-          <span class="modal-close">&times;</span>
-          <h2 class="modal-title">📚 Create Playlist</h2>
-          <form id="playlistForm">
-            <input type="text" id="playlistName" placeholder="Playlist name..." required />
-            <textarea id="playlistDesc" placeholder="Add a description (optional)"></textarea>
-            <button type="submit" class="btn-primary">Create</button>
-          </form>
-        </div>
-      </div>
-
-      <!-- Equalizer Panel -->
-      <div class="equalizer-panel" id="equalizerPanel">
-        <div class="eq-header">
-          <h3>🎛️ Equalizer</h3>
-          <button class="eq-close" id="eqClose">
-            <i class="fa-solid fa-xmark"></i>
-          </button>
-        </div>
-        <div class="eq-presets">
-          <button class="eq-preset active" data-preset="normal">Normal</button>
-          <button class="eq-preset" data-preset="bass">Bass</button>
-          <button class="eq-preset" data-preset="treble">Treble</button>
-          <button class="eq-preset" data-preset="vocal">Vocal</button>
-        </div>
-        <div class="eq-sliders">
-          <div class="eq-slider">
-            <label>60Hz</label>
-            <input type="range" class="eq-control" min="-20" max="20" value="0" data-freq="60" />
-          </div>
-          <div class="eq-slider">
-            <label>250Hz</label>
-            <input type="range" class="eq-control" min="-20" max="20" value="0" data-freq="250" />
-          </div>
-          <div class="eq-slider">
-            <label>1kHz</label>
-            <input type="range" class="eq-control" min="-20" max="20" value="0" data-freq="1000" />
-          </div>
-          <div class="eq-slider">
-            <label>4kHz</label>
-            <input type="range" class="eq-control" min="-20" max="20" value="0" data-freq="4000" />
-          </div>
-          <div class="eq-slider">
-            <label>12kHz</label>
-            <input type="range" class="eq-control" min="-20" max="20" value="0" data-freq="12000" />
-          </div>
-        </div>
-      </div>
-    </div>
+        </div> <!-- equalizer-panel closes -->
+      </div> <!-- songList closes -->
+    </div> <!-- container closes -->
   </main>
 
   <footer role="contentinfo" aria-label="Player controls">
     <div class="bottom">
-    <div class="progressContainer">
-      <span id="currentTime" class="timeDisplay" aria-label="Current time">0:00</span>
-      <input type="range" name="range" id="myProgressBar" min="0" value="0" max="100" aria-label="Song progress" />
-      <span id="duration" class="timeDisplay" aria-label="Duration">0:00</span>
-    </div>
-    <div class="icons" role="group" aria-label="Playback controls">
-      <!-- fontawesome icons -->
-      <i class="fa-solid fa-3x fa-shuffle" id="shuffle" title="Shuffle (S)" role="button" tabindex="0" aria-label="Toggle shuffle" aria-pressed="false"></i>
-      <i class="fa-solid fa-3x fa-backward-step" id="previous" title="Previous (←)" role="button" tabindex="0" aria-label="Previous song"></i>
-      <i class="fa-solid fa-3x fa-circle-play" id="masterPlay" title="Play/Pause (Space)" role="button" tabindex="0" aria-label="Play pause"></i>
-      <i class="fa-solid fa-3x fa-forward-step" id="next" title="Next (→)" role="button" tabindex="0" aria-label="Next song"></i>
-      <i class="fa-solid fa-3x fa-heart" id="likeBtn" title="Like (L)" role="button" tabindex="0" aria-label="Like song" aria-pressed="false"></i>
-    </div>
-    <div class="secondary-controls">
-      <button id="shareBtn" class="control-btn" title="Share song" aria-label="Share song">
-        <i class="fa-solid fa-share-nodes"></i>
-      </button>
-      <button id="addToPlaylistBtn" class="control-btn" title="Add to playlist" aria-label="Add to playlist">
-        <i class="fa-solid fa-plus"></i>
-      </button>
-      <button id="equalizerBtn" class="control-btn" title="Open Equalizer" aria-label="Open equalizer">
-        <i class="fa-solid fa-sliders"></i>
-      </button>
-    </div>
-    <div class="volumeContainer" role="group" aria-label="Volume controls">
-      <i class="fa-solid fa-volume-low" id="volumeIcon" aria-hidden="true"></i>
-      <input type="range" id="volumeControl" min="0" max="100" value="70" class="volume-slider" aria-label="Volume" />
-      <div class="repeat-container" title="Repeat modes: OFF → ALL → ONE (Press R)" role="button" tabindex="0" aria-label="Toggle repeat mode" aria-pressed="false">
-        <i class="fa-solid fa-repeat" id="repeat"></i>
-        <span class="repeat-badge" id="repeatBadge">OFF</span>
-        <div class="repeat-tooltip">OFF</div>
+      <div class="progressContainer">
+        <span id="currentTime" class="timeDisplay" aria-label="Current time">0:00</span>
+        <input type="range" name="range" id="myProgressBar" min="0" value="0" max="100" aria-label="Song progress" />
+        <span id="duration" class="timeDisplay" aria-label="Duration">0:00</span>
+      </div>
+      <div class="icons" role="group" aria-label="Playback controls">
+        <!-- fontawesome icons -->
+        <i class="fa-solid fa-3x fa-shuffle" id="shuffle" title="Shuffle (S)" role="button" tabindex="0"
+          aria-label="Toggle shuffle" aria-pressed="false"></i>
+        <i class="fa-solid fa-3x fa-backward-step" id="previous" title="Previous (←)" role="button" tabindex="0"
+          aria-label="Previous song"></i>
+        <i class="fa-solid fa-3x fa-circle-play" id="masterPlay" title="Play/Pause (Space)" role="button" tabindex="0"
+          aria-label="Play pause"></i>
+        <i class="fa-solid fa-3x fa-forward-step" id="next" title="Next (→)" role="button" tabindex="0"
+          aria-label="Next song"></i>
+        <i class="fa-solid fa-3x fa-heart" id="likeBtn" title="Like (L)" role="button" tabindex="0"
+          aria-label="Like song" aria-pressed="false"></i>
+      </div>
+      <div class="secondary-controls">
+        <button id="shareBtn" class="control-btn" title="Share song" aria-label="Share song">
+          <i class="fa-solid fa-share-nodes"></i>
+        </button>
+        <button id="addToPlaylistBtn" class="control-btn" title="Add to playlist" aria-label="Add to playlist">
+          <i class="fa-solid fa-plus"></i>
+        </button>
+        <button id="equalizerBtn" class="control-btn" title="Open Equalizer" aria-label="Open equalizer">
+          <i class="fa-solid fa-sliders"></i>
+        </button>
+      </div>
+      <div class="volumeContainer" role="group" aria-label="Volume controls">
+        <i class="fa-solid fa-volume-low" id="volumeIcon" aria-hidden="true"></i>
+        <input type="range" id="volumeControl" min="0" max="100" value="70" class="volume-slider" aria-label="Volume" />
+        <div class="repeat-container" title="Repeat modes: OFF → ALL → ONE (Press R)" role="button" tabindex="0"
+          aria-label="Toggle repeat mode" aria-pressed="false">
+          <i class="fa-solid fa-repeat" id="repeat"></i>
+          <span class="repeat-badge" id="repeatBadge">OFF</span>
+          <div class="repeat-tooltip">OFF</div>
+        </div>
+      </div>
+      <div class="songInfo">
+        <img src="playing.gif" width="42px" alt="" id="gif" aria-hidden="true" />
+        <span id="masterSongName" aria-live="polite">Let Me Love You - Justin Bieber</span>
       </div>
     </div>
-    <div class="songInfo">
-      <img src="playing.gif" width="42px" alt="" id="gif" aria-hidden="true" />
-      <span id="masterSongName" aria-live="polite">Let Me Love You - Justin Bieber</span>
-    </div>
-    </div>
   </footer>
-  
+
   <!-- Help Modal -->
   <div id="helpModal" class="modal">
     <div class="modal-content">
       <span class="modal-close">&times;</span>
       <h2 class="modal-title">⌨️ Keyboard Shortcuts</h2>
-      
+
       <div class="modal-shortcuts">
         <div class="modal-category">
           <h4><i class="fa-solid fa-play-circle"></i> Playback</h4>
@@ -434,7 +472,7 @@
 
   <script src="https://kit.fontawesome.com/62fd0e35cd.js" crossorigin="anonymous"></script>
   <script src="script.js"></script>
-  
+
   <!-- Register Service Worker for PWA -->
   <script>
     if ('serviceWorker' in navigator) {

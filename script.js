@@ -26,14 +26,14 @@ audioElement.volume = 0.7;
 audioElement.addEventListener("error", (e) => {
   console.error("Audio loading error:", e);
   let errorMsg = "Error loading audio file";
-  
-  switch(audioElement.error?.code) {
+
+  switch (audioElement.error?.code) {
     case 1: errorMsg = "Audio loading aborted"; break;
     case 2: errorMsg = "Network error while loading audio"; break;
     case 3: errorMsg = "Audio decoding failed"; break;
     case 4: errorMsg = "Audio format not supported"; break;
   }
-  
+
   console.warn(errorMsg);
   // Optionally show user notification
   alert(`Unable to play song: ${errorMsg}`);
@@ -99,44 +99,112 @@ audioElement.addEventListener("loadstart", () => {
   durationDisplay.innerText = "0:00";
 });
 
+// 0. Centralized UI Sync
+function updateAllUI() {
+  if (!songs[songIndex]) return;
+  const currentSong = songs[songIndex];
+  console.log(`[UI Sync] Updating UI for: ${currentSong.songName} (Index: ${songIndex})`);
+
+  // 1. Master Song Name
+  if (masterSongName) masterSongName.innerText = currentSong.songName;
+
+  // 2. Visualizer Sync
+  const vizCover = document.getElementById("visualizerCover");
+  const vizSong = document.getElementById("visualizerSongName");
+  const vizArtist = document.getElementById("visualizerArtistName");
+
+  if (vizCover) {
+    vizCover.src = currentSong.coverPath;
+    vizCover.onerror = () => {
+      console.error(`[UI Sync] Failed to load visualizer cover: ${currentSong.coverPath}`);
+      vizCover.src = "covers/cover1.jpg"; // Fallback
+    };
+  }
+
+  let title = currentSong.songName;
+  let artist = "NCS Release";
+  if (title.includes(" - ")) {
+    [title, artist] = title.split(" - ").map(s => s.trim());
+  } else if (title.includes("_")) {
+    title = title.split("_")[0].trim();
+  }
+
+  if (vizSong) vizSong.innerText = title;
+  if (vizArtist) vizArtist.innerText = artist;
+
+  // 3. Mini Player Sync
+  const miniPlayer = document.getElementById("miniPlayer");
+  const miniCover = document.getElementById("miniPlayerCover");
+  const miniTitle = document.getElementById("miniPlayerTitle");
+  const miniArtist = document.getElementById("miniPlayerArtist");
+
+  if (miniPlayer) {
+    if (miniCover) miniCover.src = currentSong.coverPath;
+    if (miniTitle) miniTitle.innerText = currentSong.songName;
+    if (miniArtist) miniArtist.innerText = "NCS Release";
+  }
+
+  // 4. Highlight List
+  highlightPlayingSong(songIndex);
+
+  // 5. Update Lyrics
+  if (typeof displayLyrics === 'function') displayLyrics();
+}
+
 // Helper function to safely play a song
 function playSong(index) {
   songIndex = index;
+  console.log("PlaySong called for index:", index);
+
   audioElement.src = songs[songIndex].filePath;
-  masterSongName.innerText = songs[songIndex].songName;
-  updateLikeButtonStatus();
   audioElement.currentTime = 0;
-  
-  // Ensure audio element is not muted and load the audio file
-  audioElement.muted = false;
+
+  // Sync all UI components
+  updateAllUI();
+
+  // Ensure audio element is ready
   audioElement.load();
-  
-  // Play when audio is ready
-  let playPromise = audioElement.play();
-  if (playPromise !== undefined) {
-    playPromise
-      .then(() => {
-        console.log("✓ Song playing: " + songs[songIndex].songName);
-        highlightPlayingSong(songIndex);
-        if (gif) gif.style.opacity = 1;
-      })
-      .catch(error => {
-        console.error("Play failed:", error);
-        // Retry after 300ms - gives more time for audio to load
-        setTimeout(() => {
-          audioElement.play().catch(err => console.error("Retry failed:", err));
-        }, 300);
-      });
-  } else {
-    // For browsers that don't return a promise
-    highlightPlayingSong(songIndex);
-    if (gif) gif.style.opacity = 1;
-  }
+
+  const startPlay = () => {
+    let playPromise = audioElement.play();
+    if (playPromise !== undefined) {
+      playPromise
+        .then(() => {
+          console.log("✓ Song playing: " + songs[songIndex].songName);
+          if (gif) gif.style.opacity = 1;
+
+          // Initialize visualizer if not already done
+          if (!analyser) initVisualizer();
+          if (audioContext && audioContext.state === 'suspended') {
+            audioContext.resume();
+          }
+        })
+        .catch(error => {
+          console.error("Play failed:", error);
+          // Auto-retry once
+          setTimeout(() => {
+            audioElement.play().catch(e => console.error("Retry failed:", e));
+          }, 500);
+        });
+    }
+  };
+
+  // Play immediately if browser allows, otherwise wait for load
+  audioElement.oncanplay = () => {
+    startPlay();
+    audioElement.oncanplay = null; // Prevent multiple triggers
+  };
 }
 songItems.forEach((element, i) => {
   element.getElementsByTagName("img")[0].src = songs[i].coverPath;
   element.getElementsByClassName("songName")[0].innerText = songs[i].songName;
 });
+
+// Initial visualizer setup
+const initialVizCover = document.getElementById("visualizerCover");
+const initialVizSong = document.getElementById("visualizerSongName");
+if (initialVizCover) initialVizCover.src = songs[songIndex].coverPath;
+if (initialVizSong) initialVizSong.innerText = songs[songIndex].songName;
 
 
 // Set song names in list
@@ -185,7 +253,7 @@ audioElement.addEventListener("timeupdate", () => {
 volumeControl.addEventListener("input", (e) => {
   let volumePercent = e.target.value / 100;
   audioElement.volume = volumePercent;
-  
+
   // Update icon based on volume
   if (volumePercent === 0) {
     volumeIcon.classList.remove("fa-volume-low", "fa-volume-high");
@@ -275,7 +343,7 @@ likeBtn.addEventListener("click", () => {
 // Keyboard shortcuts
 document.addEventListener("keydown", (e) => {
   if (e.target === volumeControl || e.target === myProgressBar) return; // Don't interfere with slider input
-  
+
   switch (e.code) {
     case "Space":
       e.preventDefault();
@@ -351,7 +419,7 @@ document.getElementById("next").addEventListener("click", () => {
       songIndex += 1;
     }
   }
-  
+
   playSong(songIndex);
 });
 
@@ -362,7 +430,7 @@ document.getElementById("previous").addEventListener("click", () => {
   } else {
     songIndex -= 1;
   }
-  
+
   playSong(songIndex);
 });
 
@@ -395,7 +463,7 @@ const searchInput = document.getElementById("searchInput");
 searchInput.addEventListener("input", (e) => {
   const searchTerm = e.target.value.toLowerCase();
   const allSongItems = document.querySelectorAll(".songItem");
-  
+
   allSongItems.forEach((item) => {
     const songName = item.querySelector(".songName").innerText.toLowerCase();
     if (songName.includes(searchTerm)) {
@@ -421,7 +489,7 @@ darkModeToggle.addEventListener("click", () => {
   document.body.classList.toggle("dark-mode");
   const isDark = document.body.classList.contains("dark-mode");
   localStorage.setItem("darkMode", isDark);
-  
+
   if (isDark) {
     darkModeToggle.classList.add("fa-sun");
     darkModeToggle.classList.remove("fa-moon");
@@ -457,7 +525,7 @@ document.addEventListener("keydown", (e) => {
     e.preventDefault();
     helpModal.classList.add("show");
   }
-  
+
   // Close modal with Escape key
   if (e.key === "Escape" && helpModal) {
     helpModal.classList.remove("show");
@@ -488,11 +556,11 @@ function addToHistory(songName) {
     timestamp: new Date(),
     time: new Date().toLocaleTimeString()
   });
-  
+
   if (playHistory.length > 50) {
     playHistory.pop();
   }
-  
+
   localStorage.setItem("playHistory", JSON.stringify(playHistory));
   updateHistoryDisplay();
 }
@@ -507,13 +575,13 @@ function updateQueue() {
 function updateQueueDisplay() {
   const queueList = document.getElementById("queueList");
   if (!queueList) return;
-  
+
   queueList.innerHTML = "";
   if (songQueue.length === 0) {
     queueList.innerHTML = '<p style="opacity: 0.6;">Queue is empty</p>';
     return;
   }
-  
+
   songQueue.forEach((song, index) => {
     const queueItem = document.createElement("div");
     queueItem.className = "queue-item";
@@ -532,13 +600,13 @@ function updateQueueDisplay() {
 function updateHistoryDisplay() {
   const historyList = document.getElementById("historyList");
   if (!historyList) return;
-  
+
   historyList.innerHTML = "";
   if (playHistory.length === 0) {
     historyList.innerHTML = '<p style="opacity: 0.6;">No history yet</p>';
     return;
   }
-  
+
   playHistory.forEach((item, index) => {
     const historyItem = document.createElement("div");
     historyItem.className = "history-item";
@@ -568,14 +636,14 @@ const mockLyrics = {
 function displayLyrics() {
   const lyricsList = document.getElementById("lyricsList");
   const lyricsSongName = document.getElementById("lyricsSongName");
-  
+
   if (!lyricsList) return;
-  
+
   const currentSong = songs[songIndex].songName;
   lyricsSongName.innerText = currentSong;
-  
+
   const lyrics = mockLyrics[currentSong] || "No lyrics available for this song";
-  
+
   if (lyrics === "No lyrics available for this song") {
     lyricsList.innerHTML = '<p class="no-lyrics">No lyrics available for this song</p>';
   } else {
@@ -589,10 +657,10 @@ function displayLyrics() {
 // 5. STATISTICS DASHBOARD
 function updateStats() {
   playStats.totalPlays++;
-  
+
   const currentSong = songs[songIndex].songName;
   playStats.songPlayCount[currentSong] = (playStats.songPlayCount[currentSong] || 0) + 1;
-  
+
   localStorage.setItem("playStats", JSON.stringify(playStats));
   updateStatsDisplay();
 }
@@ -602,21 +670,21 @@ function updateStatsDisplay() {
   const totalLikedEl = document.getElementById("totalLiked");
   const totalTimeEl = document.getElementById("totalTime");
   const topSongsEl = document.getElementById("topSongs");
-  
+
   if (totalPlaysEl) totalPlaysEl.innerText = playStats.totalPlays;
   if (totalLikedEl) totalLikedEl.innerText = likedSongs.length;
-  
+
   if (totalTimeEl) {
     const hours = Math.floor(playStats.totalTimeSpent / 3600);
     const minutes = Math.floor((playStats.totalTimeSpent % 3600) / 60);
     totalTimeEl.innerText = `${hours}h ${minutes}m`;
   }
-  
+
   if (topSongsEl) {
     const topSongs = Object.entries(playStats.songPlayCount)
       .sort((a, b) => b[1] - a[1])
       .slice(0, 3);
-    
+
     topSongsEl.innerHTML = topSongs
       .map((song, idx) => `
         <div class="top-song-item">
@@ -635,46 +703,46 @@ let audioContext, analyser, dataArray, canvas, canvasCtx;
 function initVisualizer() {
   const canvasEl = document.getElementById("audioVisualizer");
   if (!canvasEl) return;
-  
+
   canvas = canvasEl;
   canvasCtx = canvas.getContext("2d");
-  
+
   if (!audioContext) {
     audioContext = new (window.AudioContext || window.webkitAudioContext)();
   }
-  
+
   if (!analyser) {
     analyser = audioContext.createAnalyser();
     analyser.fftSize = 256;
-    
+
     const source = audioContext.createMediaElementAudioSource(audioElement);
     source.connect(analyser);
     analyser.connect(audioContext.destination);
   }
-  
+
   drawVisualizer();
 }
 
 function drawVisualizer() {
   if (!analyser) return;
-  
+
   const bufferLength = analyser.frequencyBinCount;
   dataArray = new Uint8Array(bufferLength);
   analyser.getByteFrequencyData(dataArray);
-  
+
   canvasCtx.clearRect(0, 0, canvas.width, canvas.height);
   canvasCtx.fillStyle = "rgba(29, 185, 84, 0.8)";
-  
+
   const barWidth = canvas.width / bufferLength * 2.5;
   let x = 0;
-  
+
   for (let i = 0; i < bufferLength; i++) {
     const barHeight = (dataArray[i] / 255) * canvas.height;
-    
+
     canvasCtx.fillRect(x, canvas.height - barHeight, barWidth - 1, barHeight);
     x += barWidth;
   }
-  
+
   requestAnimationFrame(drawVisualizer);
 }
 
@@ -701,17 +769,7 @@ if (miniCloseBtn) {
   });
 }
 
-function updateMiniPlayer() {
-  if (!miniPlayer) return;
-  
-  const miniPlayerCover = document.getElementById("miniPlayerCover");
-  const miniPlayerTitle = document.getElementById("miniPlayerTitle");
-  const miniPlayerArtist = document.getElementById("miniPlayerArtist");
-  
-  if (miniPlayerCover) miniPlayerCover.src = songs[songIndex].coverPath || "covers/cover1.jpg";
-  if (miniPlayerTitle) miniPlayerTitle.innerText = songs[songIndex].songName;
-  if (miniPlayerArtist) miniPlayerArtist.innerText = "NCS";
-}
+// Redundant functions removed in favor of updateAllUI()
 
 // 8. SHARE FUNCTIONALITY
 const shareBtn = document.getElementById("shareBtn");
@@ -732,7 +790,7 @@ if (shareBtns) {
       const shareType = btn.dataset.share;
       const songName = songs[songIndex].songName;
       const shareUrl = `${window.location.href}?song=${songIndex}`;
-      
+
       switch (shareType) {
         case "twitter":
           window.open(`https://twitter.com/intent/tweet?text=Check out ${songName}! &url=${shareUrl}`, "_blank");
@@ -777,17 +835,17 @@ if (newPlaylistBtn && playlistModal) {
 if (playlistForm) {
   playlistForm.addEventListener("submit", (e) => {
     e.preventDefault();
-    
+
     const playlistName = document.getElementById("playlistName").value;
     const playlistDesc = document.getElementById("playlistDesc").value;
-    
+
     playlists.push({
       id: Date.now(),
       name: playlistName,
       description: playlistDesc,
       songs: []
     });
-    
+
     localStorage.setItem("playlists", JSON.stringify(playlists));
     updatePlaylistsDisplay();
     playlistForm.reset();
@@ -798,7 +856,7 @@ if (playlistForm) {
 function updatePlaylistsDisplay() {
   const playlistsList = document.getElementById("playlistsList");
   if (!playlistsList) return;
-  
+
   playlistsList.innerHTML = "";
   playlists.forEach(playlist => {
     const playlistItem = document.createElement("div");
@@ -820,10 +878,10 @@ if (addToPlaylistBtn) {
       alert("Create a playlist first!");
       return;
     }
-    
+
     const playlistName = prompt("Select a playlist (enter name):");
     const playlist = playlists.find(p => p.name === playlistName);
-    
+
     if (playlist) {
       playlist.songs.push(songs[songIndex].songName);
       localStorage.setItem("playlists", JSON.stringify(playlists));
@@ -838,10 +896,10 @@ viewBtns.forEach(btn => {
   btn.addEventListener("click", () => {
     viewBtns.forEach(b => b.classList.remove("active"));
     btn.classList.add("active");
-    
+
     const view = btn.dataset.view;
     const songItemContainer = document.querySelector(".songItemContainer");
-    
+
     if (view === "grid") {
       songItemContainer.style.display = "grid";
       songItemContainer.style.gridTemplateColumns = "repeat(auto-fill, minmax(180px, 1fr))";
@@ -876,7 +934,7 @@ eqPresets.forEach(preset => {
   preset.addEventListener("click", () => {
     eqPresets.forEach(p => p.classList.remove("active"));
     preset.classList.add("active");
-    
+
     // Apply preset adjustments
     const presetName = preset.dataset.preset;
     let values = {
@@ -886,7 +944,7 @@ eqPresets.forEach(preset => {
       4000: 0,
       12000: 0
     };
-    
+
     if (presetName === "bass") {
       values = { 60: 10, 250: 5, 1000: 0, 4000: -5, 12000: -10 };
     } else if (presetName === "treble") {
@@ -894,7 +952,7 @@ eqPresets.forEach(preset => {
     } else if (presetName === "vocal") {
       values = { 60: -5, 250: 2, 1000: 8, 4000: 3, 12000: 0 };
     }
-    
+
     eqControls.forEach(control => {
       const freq = control.dataset.freq;
       control.value = values[freq];
@@ -909,10 +967,10 @@ const sidebarContents = document.querySelectorAll(".sidebar-content");
 sidebarTabs.forEach(tab => {
   tab.addEventListener("click", () => {
     const tabName = tab.dataset.tab;
-    
+
     sidebarTabs.forEach(t => t.classList.remove("active"));
     sidebarContents.forEach(c => c.classList.remove("active"));
-    
+
     tab.classList.add("active");
     document.querySelector(`[data-content="${tabName}"]`)?.classList.add("active");
   });
@@ -972,7 +1030,7 @@ if (clearHistoryBtn) {
 function populateRecentlyAdded() {
   const carousel = document.getElementById("recentlyAddedCarousel");
   if (!carousel) return;
-  
+
   carousel.innerHTML = songs
     .map(song => `
       <div class="carousel-card" onclick="playSong(${songs.indexOf(song)})">
@@ -987,7 +1045,7 @@ function populateRecentlyAdded() {
 function populateRecommendations() {
   const carousel = document.getElementById("recommendationsCarousel");
   if (!carousel) return;
-  
+
   // Create shuffle of songs for recommendations
   const shuffled = [...songs].sort(() => Math.random() - 0.5);
   carousel.innerHTML = shuffled
@@ -1012,17 +1070,16 @@ window.addEventListener("load", () => {
   displayLyrics();
   updateMiniPlayer();
   initVisualizer();
-  
+
   // Update when song changes
   audioElement.addEventListener("timeupdate", () => {
     playStats.totalTimeSpent += 0.1;
   });
-  
+
   audioElement.addEventListener("play", () => {
     updateStats();
     updateQueue();
-    displayLyrics();
-    updateMiniPlayer();
+    updateAllUI();
     if (analyser) {
       audioContext.resume();
     }
@@ -1037,7 +1094,7 @@ window.addEventListener("load", () => {
         modal.style.display = "none";
       }
     });
-    
+
     const closeBtn = modal.querySelector(".modal-close");
     if (closeBtn) {
       closeBtn.addEventListener("click", () => {
