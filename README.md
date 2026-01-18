@@ -21,7 +21,7 @@ A high-performance, responsive music player inspired by Spotify, featuring a mod
 ## ⌨️ Keyboard Shortcuts
 
 | Key | Action |
-|-----|--------|
+| --- | --- |
 | **Space** | Play / Pause |
 | **Shift + N** | Next Song |
 | **Shift + P** | Previous Song |
@@ -31,9 +31,11 @@ A high-performance, responsive music player inspired by Spotify, featuring a mod
 ## �️ Installation
 
 1. Clone the repository:
+
    ```bash
    git clone https://github.com/kaushal-ka/Spotify.git
    ```
+
 2. Open `index.html` in your favorite browser.
 3. Start streaming premium NCS tracks!
 
