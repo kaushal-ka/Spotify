@@ -2,7 +2,7 @@
 
 A high-performance, responsive music player inspired by Spotify, featuring a modern glassmorphism design, real-time audio visualization, and a stationary navigation drawer. Built with vanilla HTML, CSS, and JavaScript.
 
-![Spotify Logo](logo.jpg)
+![Spotify Logo](readme.png)
 
 ## 🚀 Key Features
 
