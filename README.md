@@ -1,57 +1,47 @@
-# Spotify Clone - Modern Web Music Player
+# 🎵 Spotify Clone - Premium Music Experience
 
-# 🎵 Spotify Clone - Premium Music Player
+A high-performance, responsive music player inspired by Spotify, featuring a modern glassmorphism design, real-time audio visualization, and a stationary navigation drawer. Built with vanilla HTML, CSS, and JavaScript.
 
-A high-performance, responsive music player built with vanilla JavaScript, featuring real-time audio visualization, offline support (PWA), and a sleek Spotify-inspired interface.
-
-![Spotify Clone Design](logo.jpg)
+![Spotify Logo](logo.jpg)
 
 ## 🚀 Key Features
 
-- **Real-time Audio Visualizer**: Dynamic frequency bars synced with your music.
-- **Robust Playback Sync**: Centralized UI state management ensures visualizer, mini-player, and main controls are always in sync.
-- **Progressive Web App (PWA)**: Installable on mobile and desktop for an app-like experience.
-- **Responsive Layout**: Fluid design that works perfectly on everything from tiny phones to ultra-wide monitors.
-- **Smart Song Info**: Automatic metadata parsing for song titles and artists.
-- **Interactive UI**: Glassmorphism effects, premium transitions, and custom themed scrollbars.
-- **Full Control**: Volume, shuffle, repeat (All/One), and keyboard shortcuts.
-- **Dark Mode**: Native system-synced dark mode support.
+- **Stationary Navigation Drawer**: A professional `position: fixed` sidebar that stays pinned to the viewport, ensuring content is always accessible regardless of scroll depth.
+- **Smart Toggle Interaction**: Animated hamburger menu that shifts into a red "Close" icon inside the drawer for a sleek, intuitive experience.
+- **Real-Time Visualizer**: Dynamic audio frequency visualizer with high-quality cover art sync and artist name extraction.
+- **Premium UI/UX**:
+  - **Glassmorphism**: Elegant containers with `backdrop-filter: blur`.
+  - **Dark Mode**: Optimized dark theme for late-night listening sessions.
+  - **Micro-Animations**: Smooth scale transitions on song items and buttons.
+- **SEO & Accessibility**:
+  - **Semantic HTML**: Proper use of `nav`, `main`, `aside`, `section`, and `footer`.
+  - **Dynamic Alt Text**: Every album cover automatically generates descriptive `alt` tags for screen readers.
+  - **Skip Link**: "Skip to main content" for keyboard accessibility.
 
 ## ⌨️ Keyboard Shortcuts
 
 | Key | Action |
 |-----|--------|
-| `Space` | Play / Pause |
-| `→` | Next Song |
-| `←` | Previous Song |
-| `S` | Toggle Shuffle |
-| `R` | Toggle Repeat Mode |
-| `L` | Like / Favorite |
-| `D` | Toggle Dark Mode |
-| `?` | View Help Modal |
+| **Space** | Play / Pause |
+| **Shift + N** | Next Song |
+| **Shift + P** | Previous Song |
+| **D** | Toggle Dark Mode |
+| **Esc** | Close Sidebar Drawer |
 
-## 🛠️ Technology Stack
+## �️ Installation
 
-- **Frontend**: HTML5, CSS3 (Vanilla), JavaScript (ES6+)
-- **Audio Engine**: Web Audio API
-- **Icons**: FontAwesome 6
-- **Offline**: Service Workers & Cache Storage API (PWA)
-- **Design**: CSS Grid, Flexbox, Glassmorphism, Responsive Design
-
-## 📦 Installation & Setup
-
-1. **Clone the repository**:
+1. Clone the repository:
    ```bash
-   git clone https://github.com/yourusername/spotify-clone.git
+   git clone https://github.com/kaushal-ka/Spotify.git
    ```
-2. **Open the project**:
-   Open `index.html` in any modern web browser.
-3. **PWA Installation**:
-   Click the "Install" icon in your browser's address bar to add to your home screen.
+2. Open `index.html` in your favorite browser.
+3. Start streaming premium NCS tracks!
 
-## 📄 License
+## � Credits & License
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+- **Developer**: [kaushal-ka](https://github.com/kaushal-ka)
+- **Audio Source**: NoCopyrightSounds (NCS)
+- **License**: MIT License
 
 ---
-Crafted with ❤️ for a premium music experience.
+Made with ❤️ by [kaushal-ka](https://github.com/kaushal-ka)

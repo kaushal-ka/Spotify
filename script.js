@@ -195,8 +195,12 @@ function playSong(index) {
     audioElement.oncanplay = null; // Prevent multiple triggers
   };
 }
+
+// Set song names and covers in list
 songItems.forEach((element, i) => {
-  element.getElementsByTagName("img")[0].src = songs[i].coverPath;
+  const img = element.getElementsByTagName("img")[0];
+  img.src = songs[i].coverPath;
+  img.alt = `${songs[i].songName} Album Cover`;
   element.getElementsByClassName("songName")[0].innerText = songs[i].songName;
 });
 
